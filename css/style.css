@@ -6,6 +6,7 @@
   --accent-color: #2196f3;
   --text-color: #757575;
   --icon-color: #afb1b8;
+  --timing-fn: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .visually-hidden {
@@ -67,6 +68,8 @@ a {
   line-height: 1.142;
   letter-spacing: 0.02em;
   font-style: normal;
+
+  transition: color 250ms var(--timing-fn);
 }
 
 .nav-list-link:hover,
@@ -143,13 +146,31 @@ a {
   color: var(--text-color);
 }
 
+.nav-list-item {
+  position: relative;
+}
+
 .current {
   color: var(--accent-color);
+}
+
+.current::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 4px;
+  left: 0;
+  bottom: -1px;
+
+  background: #2196f3;
+  border-radius: 2px;
 }
 
 .contacts-list-icon {
   margin-right: 10px;
   fill: var(--text-color);
+
+  transition: fill 250ms var(--timing-fn);
 }
 
 .contacts-list-link:hover .contacts-list-icon,
@@ -163,6 +184,7 @@ a {
 
 .hero {
   background-color: #c4c4c4;
+  border-top: 1px solid #f5f4fa;
 
   background-image: linear-gradient(
       rgba(47, 48, 58, 0.4),
@@ -194,7 +216,9 @@ a {
   color: var(--secondary-color);
 }
 
-.hero-link {
+.hero-btn {
+  position: relative;
+
   display: inline-block;
   padding: 10px 32px;
   text-align: center;
@@ -208,6 +232,8 @@ a {
   line-height: 1.875;
   letter-spacing: 0.06em;
   color: var(--secondary-color);
+
+  cursor: pointer;
 }
 
 /* ========== END HERO ========== */
@@ -287,6 +313,31 @@ a {
   color: var(--main-color);
 }
 
+.services-list-item {
+  position: relative;
+}
+
+.services-item-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  min-height: 70px;
+
+  padding-top: 27px;
+  padding-bottom: 27px;
+
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.172;
+  text-align: center;
+  letter-spacing: 0.03em;
+
+  color: var(--secondary-color);
+  background: rgba(47, 48, 58, 0.8);
+}
+
 /* ========== END SERVICES ========== */
 
 /* ========== OUR TEAM ========== */
@@ -364,10 +415,14 @@ a {
   width: 44px;
   height: 44px;
   border-radius: 50%;
+
+  transition: background-color 250ms var(--timing-fn);
 }
 
 .social-link-icon {
   fill: var(--icon-color);
+
+  transition: fill 250ms var(--timing-fn);
 }
 
 .social-list-link:hover,
@@ -417,10 +472,14 @@ a {
 
   width: 170px;
   height: 90px;
+
+  transition: border 250ms var(--timing-fn);
 }
 
 .clients-list-icon {
   fill: var(--icon-color);
+
+  transition: fill 250ms var(--timing-fn);
 }
 
 .clients-list-link:hover,
@@ -506,6 +565,8 @@ a {
   height: 44px;
   border-radius: 50%;
   background-color: rgba(255, 255, 255, 0.1);
+
+  transition: background-color 250ms var(--timing-fn);
 }
 
 .footer-social-list-item:not(:last-child) {
@@ -522,6 +583,57 @@ a {
 }
 
 /* ========== END FOOTER ========== */
+
+/* ========== BACKDROP ========== */
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+
+  transition: all 250ms linear;
+}
+
+.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  width: 528px;
+  min-height: 581px;
+  background-color: #ffffff;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+
+  transition: transform 500ms ease-in-out;
+}
+
+.backdrop.is-hidden .modal {
+  transform: translate(-50%, -50%) scale(0);
+}
+
+.modal-btn-close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* ========== END BACKDROP ========== */
 
 /* ========================== PORTFOLIO PAGE ========================== */
 
@@ -559,6 +671,9 @@ a {
   letter-spacing: 0.03em;
   color: var(--main-color);
   background-color: #f5f4fa;
+
+  transition: color 250ms var(--timing-fn),
+    background-color 250ms var(--timing-fn), box-shadow 250ms var(--timing-fn);
 }
 .filters-btn:hover,
 .filters-btn:focus {
@@ -580,6 +695,18 @@ a {
 .projects-list-item {
   margin-right: 30px;
   margin-bottom: 30px;
+}
+
+.projects-link:hover,
+.projects-link:focus {
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
+    1px 4px 6px rgba(0, 0, 0, 0.16);
+}
+
+.projects-link {
+  display: block;
+
+  transition: box-shadow 250ms var(--timing-fn);
 }
 
 .projects-list-item:nth-child(3n) {
@@ -615,10 +742,33 @@ a {
   color: var(--text-color);
 }
 
-.projects-list-item:hover,
-.projects-list-item:focus {
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06),
-    1px 4px 6px rgba(0, 0, 0, 0.16);
+.projects-item-img-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 63px 24px;
+
+  font-size: 18px;
+  line-height: 1.556;
+  letter-spacing: 0.03em;
+
+  background-color: rgba(33, 150, 243, 0.9);
+  color: var(--secondary-color);
+
+  transition: transform 250ms var(--timing-fn);
+  transform: translateY(100%);
+}
+
+.projects-link:hover .project-overlay,
+.projects-link:focus .project-overlay {
+  transform: translateY(0%);
 }
 
 /* ========== END PROJECTS ========== */
